@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:aula8;assembly=aula8"
+             x:Class="aula8.BehaviorPage">
+
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <local:ColorConverter x:Key="validStyleEmail" x:TypeArguments="Style">
+        <local:ColorConverter.ValidObject>
+          <Style TargetType="BoxView">
+            <Setter Property="Color" Value="Green" />
+          </Style>
+        </local:ColorConverter.ValidObject>
+
+        <local:ColorConverter.InvalidObject>
+          <Style TargetType="BoxView">
+            <Setter Property="Color" Value="Red" />
+          </Style>
+        </local:ColorConverter.InvalidObject>
+
+      </local:ColorConverter>
+      
+    </ResourceDictionary>
+  </ContentPage.Resources>
+  
+  <StackLayout>
+
+    <Label Text="Digite o seu nome::" />
+    <Entry>
+      <Entry.Behaviors>
+        <!--<local:MaxLengthValidationBehavior />-->
+        <local:EmailValidationBehavior x:Name="validationEmailBh" />
+      </Entry.Behaviors>
+    </Entry>
+    <BoxView  x:Name="validationEmail"
+             Style="{Binding Source={x:Reference validationEmailBh },
+                              Path=IsValid,
+                              Converter={StaticResource validStyleEmail}}"/>
+    
+  </StackLayout>
+</ContentPage>
